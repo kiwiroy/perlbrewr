@@ -81,7 +81,27 @@
 <div id="perlbrewr" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#perlbrewr" class="anchor"></a>perlbrewr</h1></div>
-<p>The goal of perlbrewr is to assist the loading of a <a href="https://perlbrew.pl">perlbrew</a> perl and optionally a library with the aim of improving reproducibility.</p>
+<p>The goal of perlbrewr is to assist the loading of a <a href="https://perlbrew.pl">perlbrew</a> perl and optionally a library with the aim of improving reproducibility. The central task that perlbrewr performs is management of the environment variables in the same manner as perlbrew itself, by calling perlbrew commands and translating the changes there into R function calls that achieve the same outcome. Primarily, these are <code>Sys.setenv</code> and <code>Sys.unsetenv</code>.</p>
+<div id="dependencies" class="section level2">
+<h2 class="hasAnchor">
+<a href="#dependencies" class="anchor"></a>Dependencies</h2>
+<div id="r" class="section level3">
+<h3 class="hasAnchor">
+<a href="#r" class="anchor"></a>R</h3>
+<ul>
+<li>R (&gt;= 3.3.0)</li>
+<li>magrittr</li>
+<li>stringr</li>
+</ul>
+</div>
+<div id="non-r" class="section level3">
+<h3 class="hasAnchor">
+<a href="#non-r" class="anchor"></a>Non R</h3>
+<ul>
+<li><a href="https://perlbrew.pl">perlbrew</a></li>
+</ul>
+</div>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -93,9 +113,7 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example of usage to load a perlbrew environment:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(perlbrewr)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; Loading required package: magrittr</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; Loading required package: stringr</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">result &lt;-<span class="st"> </span><span class="kw"><a href="reference/perlbrew.html">perlbrew</a></span>(<span class="dt">root =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"PERLBREW_ROOT"</span>), <span class="dt">version =</span> <span class="st">"5.24.0"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-2" data-line-number="2">result &lt;-<span class="st"> </span><span class="kw"><a href="reference/perlbrew.html">perlbrew</a></span>(<span class="dt">root =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"PERLBREW_ROOT"</span>), <span class="dt">version =</span> <span class="st">"5.24.0"</span>)</a></code></pre></div>
 <p>The brewed version of perl is now the default.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.which">Sys.which</a></span>(<span class="st">"perl"</span>)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt;                                                perl </span></a>
@@ -115,7 +133,7 @@
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="reference/perlbrew.html">perlbrew</a></span>(<span class="dt">version =</span> <span class="st">"5.24.0"</span>, <span class="dt">lib =</span> <span class="st">"example"</span>)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"PERL5LIB"</span>)</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; [1] "/tmp/Rtmpig5Pze/.perlbrew/libs/5.24.0@example/lib/perl5"</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; [1] "/tmp/RtmpuQcZtl/.perlbrew/libs/5.24.0@example/lib/perl5"</span></a></code></pre></div>
 <p>Within this <code>local::lib</code> modules may be installed with <a href="https://metacpan.org/pod/App::cpanminus"><code>cpanm</code></a>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="ex">cpanm</span> -n -q --installdeps .</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; Successfully installed Mojolicious-8.12</span></a>
