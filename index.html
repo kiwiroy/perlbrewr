@@ -121,7 +121,7 @@
 <p>This is also the case in <code>bash</code> shell blocks.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="fu">which</span> perl</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; /home/travis/perl5/perlbrew/perls/5.24.0/bin/perl</span></a></code></pre></div>
-<p>By configuring <code>knitr</code></p>
+<p>By configuring <code>knitr</code> - this happens automatically by default.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">engine.path =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">perl =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.which">Sys.which</a></span>(<span class="st">"perl"</span>)[[<span class="st">"perl"</span>]]))</a></code></pre></div>
 <p>Perl code in <code>perl</code> blocks run the same interpreter.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode perl"><code class="sourceCode perl"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="fu">print</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Quotes">"</a></span><span class="dt">$^X</span><span class="ch">\n</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Quotes">"</a></span>;</a>
@@ -133,7 +133,7 @@
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="reference/perlbrew.html">perlbrew</a></span>(<span class="dt">version =</span> <span class="st">"5.24.0"</span>, <span class="dt">lib =</span> <span class="st">"example"</span>)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"PERL5LIB"</span>)</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; [1] "/tmp/RtmpppfQOT/.perlbrew/libs/5.24.0@example/lib/perl5"</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; [1] "/tmp/RtmpdUnmI2/.perlbrew/libs/5.24.0@example/lib/perl5"</span></a></code></pre></div>
 <p>Within this <code>local::lib</code> modules may be installed with <a href="https://metacpan.org/pod/App::cpanminus"><code>cpanm</code></a>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="ex">cpanm</span> -n -q --installdeps .</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; Successfully installed Mojolicious-8.12</span></a>
@@ -169,6 +169,12 @@
 <a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt; [11] "5.24-shrplib (5.24.3)" "5.24.3"               </span></a>
 <a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt; attr(,"active")</span></a>
 <a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt; [1] "5.24.0@example"</span></a></code></pre></div>
+</div>
+<div id="knitr" class="section level3">
+<h3 class="hasAnchor">
+<a href="#knitr" class="anchor"></a>knitr</h3>
+<p>The knitr chunk options <code>engine.path</code> and <code>engine.opts</code> are set automatically so that each <code>engine="perl"</code> chunk will use the correct <code>perl</code> interpreter and <code>PERL5LIB</code>. Any <code>engine.opts</code> for perl that have already been set should remain in the list. For this to work correctly the <code><a href="https://www.rdocumentation.org/packages/base/topics/list">list()</a></code> version of the <code>engine.opts</code> should be used. i.e.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">engine.opts =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">perl =</span> <span class="st">"-CS"</span>, <span class="dt">bash =</span> <span class="st">"--norc"</span>))</a></code></pre></div>
 </div>
 </div>
 </div>
