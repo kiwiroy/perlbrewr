@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">perlbrewr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9000</span>
       </span>
     </div>
 
@@ -113,63 +113,94 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example of usage to load a perlbrew environment:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(perlbrewr)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">result &lt;-<span class="st"> </span><span class="kw"><a href="reference/perlbrew.html">perlbrew</a></span>(<span class="dt">root =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"PERLBREW_ROOT"</span>), <span class="dt">version =</span> <span class="st">"5.24.0"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-2" data-line-number="2">result &lt;-<span class="st"> </span><span class="kw"><a href="reference/perlbrew.html">perlbrew</a></span>(<span class="dt">root =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"PERLBREW_ROOT"</span>), <span class="dt">version =</span> <span class="st">"5.24.0"</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; Warning in system(cmd, intern = TRUE): running command 'bash --</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; norc --noprofile -c 'source ${PERLBREW_ROOT:-/fail}/etc/bashrc; $</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; {perlbrew_command:-perlbrew} --quiet env 5.24.0; ' 2&gt;&amp;1' had status 2</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; Warning in perlbrew_variables(root, version, lib): ERROR: The installation</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; "5.24.0" is unknown.</span></a></code></pre></div>
 <p>The brewed version of perl is now the default.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.which">Sys.which</a></span>(<span class="st">"perl"</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt;                                                perl </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; "/home/travis/perl5/perlbrew/perls/5.24.0/bin/perl"</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt;            perl </span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; "/usr/bin/perl"</span></a></code></pre></div>
 <p>This is also the case in <code>bash</code> shell blocks.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="fu">which</span> perl</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; /home/travis/perl5/perlbrew/perls/5.24.0/bin/perl</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; /usr/bin/perl</span></a></code></pre></div>
 <p>By configuring <code>knitr</code> - this happens automatically by default.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">engine.path =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">perl =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.which">Sys.which</a></span>(<span class="st">"perl"</span>)[[<span class="st">"perl"</span>]]))</a></code></pre></div>
 <p>Perl code in <code>perl</code> blocks run the same interpreter.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode perl"><code class="sourceCode perl"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="fu">print</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Quotes">"</a></span><span class="dt">$^X</span><span class="ch">\n</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Quotes">"</a></span>;</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; /home/travis/perl5/perlbrew/perls/5.24.0/bin/perl</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; /usr/bin/perl</span></a></code></pre></div>
 <div id="locallib-library-access" class="section level3">
 <h3 class="hasAnchor">
 <a href="#locallib-library-access" class="anchor"></a>local::lib library access</h3>
 <p>Perlbrew supports <a href="https://metacpan.org/pod/local::lib"><code>local::lib</code></a> libraries for further controlling which modules are installed. <code>perlbrewr</code> supports loading these also.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="reference/perlbrew.html">perlbrew</a></span>(<span class="dt">version =</span> <span class="st">"5.24.0"</span>, <span class="dt">lib =</span> <span class="st">"example"</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"PERL5LIB"</span>)</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; [1] "/tmp/RtmpKBhXi7/.perlbrew/libs/5.24.0@example/lib/perl5"</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; Warning in system(cmd, intern = TRUE): running command 'bash --</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; norc --noprofile -c 'source ${PERLBREW_ROOT:-/fail}/etc/bashrc; $</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; {perlbrew_command:-perlbrew} --quiet env 5.24.0@example; ' 2&gt;&amp;1' had status</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; 2</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; Warning in perlbrew_variables(root, version, lib): ERROR: The installation</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; "5.24.0@example" is unknown.</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; [1] FALSE</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"PERL5LIB"</span>)</a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; [1] ""</span></a></code></pre></div>
 <p>Within this <code>local::lib</code> modules may be installed with <a href="https://metacpan.org/pod/App::cpanminus"><code>cpanm</code></a>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="bu">cd</span> inst</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="ex">cpanm</span> -n -q --installdeps .</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; Successfully installed Mojolicious-8.15</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; 1 distribution installed</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; !</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; ! Can't write to /usr/local/share/perl/5.22.1 and /usr/local/bin: Installing modules to /home/travis/perl5</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; ! To turn off this warning, you have to do one of the following:</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; !   - run me as a root or with --sudo option (to install to /usr/local/share/perl/5.22.1 and /usr/local/bin)</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; !   - Configure local::lib in your existing shell to set PERL_MM_OPT etc.</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; !   - Install local::lib by running the following commands</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; !</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; !         cpanm --local-lib=~/perl5 local::lib &amp;&amp; eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; !</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; Successfully installed Mojolicious-8.18</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; 1 distribution installed</span></a></code></pre></div>
 <p>Since <code><a href="reference/perlbrew.html">perlbrewr::perlbrew</a></code> sets the <code>PERL5LIB</code> environment variable perl code relying on the dependencies is now sucessful.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode perl"><code class="sourceCode perl"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="fu">use</span> <span class="fu">Mojo::Base</span> -<span class="kw">strict</span>;</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="fu">use</span> <span class="fu">Mojo::File</span>;</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">say <span class="fu">Mojo::File</span>-&gt;new(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Quotes">'</a></span><span class="st">inst/cpanfile</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Quotes">'</a></span>)-&gt;slurp;</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; requires "Mojolicious" =&gt; '8.0';</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode perl"><code class="sourceCode perl"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># use Mojo::Base -strict;</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co"># use Mojo::File;</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co"># say Mojo::File-&gt;new('inst/cpanfile')-&gt;slurp;</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="fu">print</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Quotes">"</a></span><span class="dt">$^X</span><span class="ch">\n</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Quotes">"</a></span>;</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="fu">print</span> <span class="dt">$ENV</span>{PERL5LIB}, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Quotes">"</a></span><span class="ch">\n</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Quotes">"</a></span>;</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; /usr/bin/perl</span></a></code></pre></div>
 </div>
 <div id="listing-and-creating-libraries" class="section level3">
 <h3 class="hasAnchor">
 <a href="#listing-and-creating-libraries" class="anchor"></a>listing and creating libraries</h3>
 <p><code>perlbrew_list</code> returns a listing of the available versions of perl and any <code>local::lib</code> libraries. If a version or library is in use, the <code>active</code> object attribute is also set.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="reference/perlbrew_list.html">perlbrew_list</a></span>()</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt;  [1] "5.22 (5.22.0)"         "5.22.0"               </span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt;  [3] "5.22-extras (5.22.4)"  "5.22-shrplib (5.22.4)"</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;  [5] "5.22.4"                "5.24 (5.24.0)"        </span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;  [7] "5.24.0"                "5.24.0@example"       </span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;  [9] "5.24-extras (5.24.3)"  "5.24-shrplib (5.24.3)"</span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; [11] "5.24.3"               </span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; attr(,"active")</span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; [1] "5.24.0@example"</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; [1] " 5.26                  (5.26.3)            (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; [2] " 5.26.3                                    (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; [3] " 5.26-extras           (5.26.2)            (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; [4] " 5.26-shrplib          (5.26.2)            (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; [5] " 5.26.2                                    (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; [6] " 5.24                  (5.24.3)            (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; [7] " 5.24.3                                    (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; [8] " 5.24-extras           (5.24.0)            (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; [9] " 5.24-shrplib          (5.24.0)            (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; attr(,"active")</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; character(0)</span></a></code></pre></div>
 <p>A new library is created with <code>perlbrew_lib_create</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="reference/perlbrew_lib_create.html">perlbrew_lib_create</a></span>(<span class="dt">version =</span> <span class="st">"5.24.0"</span>, <span class="dt">lib =</span> <span class="st">"foobar"</span>)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="reference/perlbrew_list.html">perlbrew_list</a></span>()</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt;  [1] "5.22 (5.22.0)"         "5.22.0"               </span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt;  [3] "5.22-extras (5.22.4)"  "5.22-shrplib (5.22.4)"</span></a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt;  [5] "5.22.4"                "5.24 (5.24.0)"        </span></a>
-<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt;  [7] "5.24.0"                "5.24.0@example"       </span></a>
-<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt;  [9] "5.24.0@foobar"         "5.24-extras (5.24.3)" </span></a>
-<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt; [11] "5.24-shrplib (5.24.3)" "5.24.3"               </span></a>
-<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt; attr(,"active")</span></a>
-<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt; [1] "5.24.0@example"</span></a></code></pre></div>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; Warning in system(cmd, intern = TRUE): running command 'bash --</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt; norc --noprofile -c 'source ${PERLBREW_ROOT:-/fail}/etc/bashrc; $</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; {perlbrew_command:-perlbrew} lib create 5.24.0@foobar' 2&gt;&amp;1' had status 2</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; [1] FALSE</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="kw"><a href="reference/perlbrew_list.html">perlbrew_list</a></span>()</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt; [1] " 5.26                  (5.26.3)            (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt; [2] " 5.26.3                                    (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt; [3] " 5.26-extras           (5.26.2)            (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt; [4] " 5.26-shrplib          (5.26.2)            (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt; [5] " 5.26.2                                    (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="co">#&gt; [6] " 5.24                  (5.24.3)            (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="co">#&gt; [7] " 5.24.3                                    (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb11-14" data-line-number="14"><span class="co">#&gt; [8] " 5.24-extras           (5.24.0)            (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb11-15" data-line-number="15"><span class="co">#&gt; [9] " 5.24-shrplib          (5.24.0)            (installed on Mon Mar 25 16:53:10 2019)"</span></a>
+<a class="sourceLine" id="cb11-16" data-line-number="16"><span class="co">#&gt; attr(,"active")</span></a>
+<a class="sourceLine" id="cb11-17" data-line-number="17"><span class="co">#&gt; character(0)</span></a></code></pre></div>
 </div>
 <div id="knitr" class="section level3">
 <h3 class="hasAnchor">
